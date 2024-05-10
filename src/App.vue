@@ -20,8 +20,7 @@
             </ul>
           </div>
         </div>
-    </nav>
-
+      </nav>
     </div>
     <div class="col-md-3"></div>
 
