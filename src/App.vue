@@ -1,59 +1,57 @@
 <template>
 
   <!-- test -->
-  <div class="row">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg bg-info mx-2">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">API</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <div class="col-md-3"></div>
+  <div class="container-fluid">
 
-    <!-- array of array -->
-    <div
-      class="col-md-6">
-      <ul
-        class="list-group">
-        <li
-          v-for="user in users.data" :key="user"
-          class="list-group-item my-2 border border-dark flex">
-          <div class="float-start">
-            <h4>
-              No.{{ user.id }} 
-            </h4>
-            <h4>
-              <pre>First Name : {{ user.first_name }}</pre>
-            </h4>
-            <h4>
-              <pre>Last Name  : {{ user.last_name }}</pre>
-            </h4>
-            <h4>
-              <pre>Email      : {{ user.email }}</pre>
-            </h4>
-          </div>
-          
-          <div class="float-end">
-            <img 
-              :src="user.avatar" :key="avatar" alt=""
-              class="float-end"
-            >
-          </div>
-          <!-- <div class="">
+    <!-- navigation bar -->
+    <nav class="navbar navbar-expand-lg bg-info">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="https://reqres.in/img/logo.png" alt="Logo" width="50" height="30" class="d-inline-block align-text-top">
+          Bootstrap
+        </a>
+      </div>
+    </nav>
+
+    <!-- Home page -->
+    <div class="row">
+      <!-- Empty space -->
+      <div class="col-md-3"></div>
+
+      <!-- List of Contents -->
+      <!-- array of array -->
+      <div
+        class="col-md-6">
+        <ul
+          class="list-group">
+          <li
+            v-for="user in users.data" :key="user"
+            class="list-group-item my-2 border border-dark flex">
+            <div class="float-start">
+              <h4>
+                No.{{ user.id }} 
+              </h4>
+              <h4>
+                <pre>First Name : {{ user.first_name }}</pre>
+              </h4>
+              <h4>
+                <pre>Last Name  : {{ user.last_name }}</pre>
+              </h4>
+              <h4>
+                <pre>Email      : {{ user.email }}</pre>
+              </h4>
+            </div>
+            
+            <div class="float-end">
+              <img 
+                :src="user.avatar" :key="avatar" alt=""
+                class=""
+              >
+            </div>
+          </li>
+        </ul>
+      </div> 
+      <!-- <div class="">
             <h3
               v-for="person in people" :key="person.email">
               {{ user.email }}
@@ -64,18 +62,35 @@
               Detail
             </button>
           </div> -->
+      
+      <!-- Empty Space -->
+      <div class="col-md-3"></div>
+    </div>
 
-        </li>
-      </ul>
-    </div> 
-  
-    <div class="col-md-3"></div>
+    <div class="overflow-auto">
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
+
+    <b-table
+      id="my-table"
+      :items="items"
+      :per-page="perPage"
+      :current-page="currentPage"
+      small
+    ></b-table>
+  </div>
   </div>
   
 </template>
 
 <script setup>
-  import {onMounted, reactive, ref} from 'vue';
+  import {computed, onMounted, reactive, ref} from 'vue';
   
   const users = ref([])
   const loadUsers = () => {
@@ -101,6 +116,27 @@
     person31.email = ''
     
   }
+
+  // const perPage = ref([])
+  // const currentPage = ref([])
+  // const items = ref([
+  //   { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+  //   { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+  //   { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+  //   { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+  //   { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+  //   { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+  //   { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+  //   { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+  //   { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+  // ])
+  // const rows = computed(() => {
+  //   return
+  //   console.log(rows) 
+  //   rows.items.length
+  // })
+
+  
   
   // const storeUser = () => {
   //   axios.post('https://reqres.in/api/users')
