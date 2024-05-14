@@ -44,12 +44,13 @@
             
             <div class="float-end">
               <img 
-                :src="user.avatar" :key="avatar" alt=""
+                :src="user.avatar" alt=""
                 class=""
               >
             </div>
           </li>
         </ul>
+      
       </div> 
       <!-- <div class="">
             <h3
@@ -67,7 +68,7 @@
       <div class="col-md-3"></div>
     </div>
 
-    <div class="overflow-auto">
+    <!-- <div class="overflow-auto">
       <b-pagination
         v-model="currentPage"
         :total-rows="totalRows"
@@ -86,8 +87,19 @@
         :per-page="perPage"
         :current-page="currentPage"
         small
-      ></b-table>
-  </div>
+      >
+      </b-table>
+    </div> -->
+
+    <div class="text-center">
+      <b-pagination
+        v-model="page"
+        :length="3"
+        :total-visible="2"
+      >
+      </b-pagination>
+    </div>
+
   </div>
   
 </template>
@@ -95,6 +107,8 @@
 <script setup>
   import {computed, onMounted, reactive, ref} from 'vue';
   
+  const page = ref(1)
+
   const users = ref([])
   const loadUsers = () => {
     axios.get('https://reqres.in/api/users')
@@ -120,25 +134,26 @@
     
   }
 
-  const perPage = ref(3)
-  const currentPage = ref()
-  const items = ref([
-    { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-    { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-    { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-    { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-    { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-    { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-    { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-    { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-    { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-  ])
-  const rows = computed(() => {
+  // const perPage = ref(3)
+  // const currentPage = ref()
+  // const items = ref([
+  //   { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+  //   { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+  //   { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+  //   { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+  //   { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+  //   { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+  //   { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+  //   { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+  //   { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+  // ])
+  // const rows = computed(() => {
     
-    console.log(rows) 
-    return
-    rows.items.length
-  })
+  //   console.log(rows) 
+  //   return
+  //   rows.items.length
+  // })
+
 
   // const perPage = ref(3)
   // const currentPage = ref([
@@ -188,6 +203,16 @@
   
   
 
+</script>
+
+<script>
+  export default {
+    data () {
+      return {
+        page: 1,
+      }
+    },
+  }
 </script>
 
 <style scoped>
