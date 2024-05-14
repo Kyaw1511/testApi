@@ -68,22 +68,25 @@
     </div>
 
     <div class="overflow-auto">
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-    ></b-pagination>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        :limit="limit"
+        align="center"
+        class="pagination"
+        aria-controls="my-table"
+      ></b-pagination>
 
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
+      <p class="mt-3">Current Page: {{ currentPage }}</p>
 
-    <b-table
-      id="my-table"
-      :items="items"
-      :per-page="perPage"
-      :current-page="currentPage"
-      small
-    ></b-table>
+      <b-table
+        id="my-table"
+        :items="itmes"
+        :per-page="perPage"
+        :current-page="currentPage"
+        small
+      ></b-table>
   </div>
   </div>
   
@@ -117,24 +120,25 @@
     
   }
 
-  // const perPage = ref([])
-  // const currentPage = ref([])
-  // const items = ref([
-  //   { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-  //   { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-  //   { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-  //   { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-  //   { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-  //   { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-  //   { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-  //   { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-  //   { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-  // ])
-  // const rows = computed(() => {
-  //   return
-  //   console.log(rows) 
-  //   rows.items.length
-  // })
+  const perPage = ref(3)
+  const currentPage = ref()
+  const items = ref([
+    { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+    { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+    { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+    { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+    { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+    { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+    { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+    { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+    { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+  ])
+  const rows = computed(() => {
+    
+    console.log(rows) 
+    return
+    rows.items.length
+  })
 
   // const perPage = ref(3)
   // const currentPage = ref([
@@ -154,24 +158,24 @@
   // })
   // ])
 
-  const perPage = ref(3);
-const currentPage = ref(1);
-const items = [
-  { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-  { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-  { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-  { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-  { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-  { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-  { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-  { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-  { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-];
+// const perPage = ref(3);
+// const currentPage = ref(1);
+// const items = [
+//   { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+//   { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+//   { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+//   { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+//   { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+//   { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+//   { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+//   { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+//   { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+// ];
 
-const rows = computed(() => {
-  items.value
-});
-  
+// const rows = computed(() => {
+//   rows.value.length
+// });
+
   
   // const storeUser = () => {
   //   axios.post('https://reqres.in/api/users')
