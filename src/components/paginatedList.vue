@@ -1,17 +1,17 @@
 <template>
-    <div>
-      <ul>
-        <li v-for="item in paginatedData" :key="item.id">{{ item.name }}</li>
-      </ul>
-      <div class="pagination-controls">
-        <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-      </div>
+  <div>
+    <ul>
+      <li v-for="item in paginatedData" :key="item.id">{{ item.name }}</li>
+    </ul>
+    <div class="pagination-controls">
+      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script setup>
+<script setup>
   import { ref, computed, onMounted } from 'vue';
   
   // Sample data - replace with your own data source
@@ -78,76 +78,27 @@
   // };
 
   // Reactive state
-const data = ref([]);
-// const loadUsers = () => {
-//     axios.get('https://reqres.in/api/users')
-//     .then((res) => {
-//       users.value = res.data    
+  const data = ref([]);
+  const itemsPerPage = (6);
+  const currentPage = ref(1);
+
+const loadUsers = () => {
+  // `https://reqres.in/api/users?page=${currentPage.value}`
+    axios.get('https://reqres.in/api/users')
+    .then((res) => {
+      data.value = res.data
       
-//     })
-//     .catch((err) => console.log(err))
+    })
+    .catch((err) => console.log(err))
 
-//   }
-//   onMounted(() => {
-//     loadUsers()
+  }
+  onMounted(() => {
+    loadUsers()
 
-//   })
-
-const itemsPerPage = 3;
-const currentPage = ref(1);
-
-// const loadUsers = () => {
-//   // `https://reqres.in/api/users?page=${currentPage.value}`
-//     axios.get(`https://reqres.in/api/users`)
-//     .then((res) => {
-//       data.value = res.data    
-      
-//     })
-//     .catch((err) => console.log(err))
-
-//   }
-//   onMounted(() => {
-//     loadUsers()
-
-//   })
+  })
 
   //Fetch data from API
-const fetchData = async () => {
-  try {
-    // const response = await fetch('https://api.example.com/items');
-    const response = await fetch('https://reqres.in/api/users');
-    data.value = response.data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-
-// Fetch data when the component is mounted
-onMounted(fetchData);
-
-// Computed properties
-const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
-const paginatedData = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return data.value.slice(start, end);
-});
-
-// Methods to change pages
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
-};
-
-const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-  }
-};
-
-//Fetch data from API
-// const fetchData = async () => {
+//   const fetchData = async () => {
 //   try {
 //     // const response = await fetch('https://api.example.com/items');
 //     const response = await fetch('https://reqres.in/api/users');
@@ -155,67 +106,52 @@ const prevPage = () => {
 //   } catch (error) {
 //     console.error('Error fetching data:', error);
 //   }
-// };
+// }
+  // Fetch data when the component is mounted
+  // onMounted(fetchData);
 
-// Fetch data when the component is mounted
-// onMounted(fetchData);
+  // Computed properties
+  const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
+  const paginatedData = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return data.value.slice(start, end);
+  });
 
+  // Methods to change pages
+  const nextPage = () => {
+    if (currentPage.value < totalPages.value) {
+      currentPage.value++;
+    }
+  };
 
-  // const loadUsers = () => {
-  //   axios.get('https://reqres.in/api/users')
-  //   .then((res) => {
-  //     data.value = res.data    
-      
-  //   })
-  //   .catch((err) => console.log(err))
+  const prevPage = () => {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+    }
+  };
 
-  // }
-  // onMounted(() => {
-  //   loadUsers()
-
-  // })
-
-  </script>
+</script>
   
-   <!-- <style>
-  pagination-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-}
-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-button:disabled {
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
-  </style>  -->
 
-  <style>
-.pagination-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-}
-button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-button:disabled {
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
+<style>
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  button:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+  }
 </style>
 

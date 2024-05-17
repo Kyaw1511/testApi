@@ -4,7 +4,8 @@
   <div class="container-fluid">
 
     <!-- navigation bar -->
-    <nav class="navbar navbar-expand-lg bg-info">
+    <nav 
+      class="navbar navbar-expand-lg bg-info">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="https://reqres.in/img/logo.png" alt="Logo" width="50" height="30" class="d-inline-block align-text-top">
@@ -14,15 +15,23 @@
     </nav>
 
     <!-- Home page -->
-    <div class="row">
+    <div 
+      class="row">
       <!-- Empty space -->
-      <div class="col-md-3"></div>
+      <div 
+        class="col-md-3">
+      </div>
 
       <!-- List of Contents -->
       <!-- array of array -->
       <div
         class="col-md-6" id="app">
-        <PaginatedList />
+        <PaginatedList 
+        :totalItems="totalItems"
+        :itemsPerPage="itemsPerPage"
+        :currentPage="currentPage"
+        @update:page="updatePage"
+        />
         <ul
           class="list-group">
           <li
@@ -54,7 +63,8 @@
         </ul>
       
       </div> 
-      <!-- <div class="">
+      <!-- <div 
+            class="">
             <h3
               v-for="person in people" :key="person.email">
               {{ user.email }}
@@ -93,8 +103,6 @@
       </b-table>
     </div> -->
 
-    
-
   </div>
   
 </template>
@@ -117,6 +125,16 @@
     loadUsers()
 
   })
+
+  const storeUser = () => {
+    axios.post('https://reqres.in/api/users')
+    .then((res) => {
+      users.value.push(res.data)
+    
+      console.log(res)
+    })
+  }
+
   
   // const person31 = reactive({
   //   email: ''
@@ -147,9 +165,6 @@
   //   return rows.items.length
     
   // })
-
-  
-
 
   // const perPage = ref(3)
   // const currentPage = ref([
@@ -186,19 +201,7 @@
 // const rows = computed(() => {
 //   rows.value.length
 // });
-
   
-  const storeUser = () => {
-    axios.post('https://reqres.in/api/users')
-    .then((res) => {
-      users.value.push(res.data)
-    
-      console.log(res)
-    })
-  }
-  
-  
-
 </script>
 
 <style scoped>
