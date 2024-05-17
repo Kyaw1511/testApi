@@ -21,13 +21,14 @@
       <!-- List of Contents -->
       <!-- array of array -->
       <div
-        class="col-md-6">
+        class="col-md-6" id="app">
+        <PaginatedList />
         <ul
           class="list-group">
           <li
             v-for="user in users.data" :key="user"
             class="list-group-item my-2 border border-dark flex" 
-            id="mytable">
+            id="app">
             <div class="float-start">
               <h4>
                 No.{{ user.id }} 
@@ -69,7 +70,7 @@
       <div class="col-md-3"></div>
     </div>
 
-    <div class="overflow-auto">
+    <!-- <div class="overflow-auto">
       <b-pagination
         v-model="currentPage"
         :total-rows="totalRows"
@@ -90,15 +91,18 @@
         small
       >
       </b-table>
-    </div>
+    </div> -->
+
+    
 
   </div>
   
 </template>
 
 <script setup>
-  import {computed, onMounted, reactive, ref} from 'vue';
-  
+  import {onMounted, ref} from 'vue';
+  import PaginatedList from './components/paginatedList.vue';
+
   const users = ref([])
   const loadUsers = () => {
     axios.get('https://reqres.in/api/users')
@@ -114,35 +118,37 @@
 
   })
   
-  const person31 = reactive({
-    email: ''
-  })
-  const people = ref([])
-  const showEmail = () => {
-    people.value.push({...person31})
-    person31.email = ''
+  // const person31 = reactive({
+  //   email: ''
+  // })
+  // const people = ref([])
+  // const showEmail = () => {
+  //   people.value.push({...person31})
+  //   person31.email = ''
     
-  }
+  // }
 
-  const perPage = ref(3)
-  const currentPage = ref(1)
-  const items = ref([
-    { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-    { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-    { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-    { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-    { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-    { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-    { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-    { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-    { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
-  ])
-  const rows = computed(() => {
+  // const perPage = ref(3)
+  // const currentPage = ref(1)
+  // const items = ref([
+  //   { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
+  //   { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
+  //   { id: 3, first_name: 'Barney', last_name: 'Rubble' },
+  //   { id: 4, first_name: 'Betty', last_name: 'Rubble' },
+  //   { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
+  //   { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
+  //   { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
+  //   { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
+  //   { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' }
+  // ])
+  // const rows = computed(() => {
     
-    console.log(rows) 
-    return rows.items.length
+  //   console.log(rows) 
+  //   return rows.items.length
     
-  })
+  // })
+
+  
 
 
   // const perPage = ref(3)
@@ -182,27 +188,17 @@
 // });
 
   
-  // const storeUser = () => {
-  //   axios.post('https://reqres.in/api/users')
-  //   .then((res) => {
-  //     users.value.push(res.data)
+  const storeUser = () => {
+    axios.post('https://reqres.in/api/users')
+    .then((res) => {
+      users.value.push(res.data)
     
-  //     console.log(res)
-  //   })
-  // }
-  
-  
-
-</script>
-
-<script>
-  export default {
-    data () {
-      return {
-        page: 1,
-      }
-    },
+      console.log(res)
+    })
   }
+  
+  
+
 </script>
 
 <style scoped>
